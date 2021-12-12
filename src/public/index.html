@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Consistent Hashing Visualizer</title>
+  <meta name="description" content="Verifying the claims of Consistent Hashing">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="icon" type="image/x-icon" href="assets/images/icon.png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.muicss.com/mui-0.9.20/css/mui.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=EB+Garamond:400,700|Open+Sans" rel="stylesheet">
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+<div class="app-container" id="vue-instance">
+    <h1>Consistent Hashing Visualizer</h1>
+    <!-- Search Metadata Card -->
+    <div class="mui-panel">
+      <div class="mui--text-headline">{{value}}</div>
+      <div class="mui--text-subhead">{{ operations }} Operations Performed</div>
+    </div>
+
+    <!-- Top Pagination Card -->
+    <div class="mui-panel pagination-panel">
+        <button class="mui-btn mui-btn--flat" v-on:click="add('1')">Add Node</button>
+        <button class="mui-btn mui-btn--flat" v-on:click="remove('2')">Remove Node</button>
+    </div>
+
+    <!-- Search Results Card List
+    <div class="search-results" ref="searchResults">
+      <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
+        <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
+        <div class="mui-divider"></div>
+        <div class="mui--text-subhead">{{ hit._source.title }} - {{ hit._source.author }}</div>
+        <div class="mui--text-body2">Location {{ hit._source.id }}</div>
+      </div>
+    </div> -->
+
+</div>
+<a href="https://github.com/Dhanya-Abhirami/Gutenberg-Search" title="See the source code at GitHub" style="position: fixed; top: 0; right: 0; border: 0; display: inline-block;"><img src="assets/images/github-ribbon.svg" width="50px" height="50px" alt=""></a>
+<script src="https://cdn.muicss.com/mui-0.9.28/js/mui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.0/axios.min.js"></script>
+
+<script src="app.js"></script>
+</body>
+</html>
