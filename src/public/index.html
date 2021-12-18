@@ -15,17 +15,22 @@
 <div class="app-container" id="vue-instance">
     <h1>Consistent Hashing Visualizer</h1>
     <!-- Search Metadata Card -->
+    <div class="mui-panel justify">
+      <button class="mui-btn mui-btn--flat" v-on:click="hashring()">Create Hash Ring</button>
+    </div>
+
     <div class="mui-panel">
-      <div class="mui--text-headline">{{value}}</div>
+      <div class="mui--text-headline">{{nodes}} Nodes</div>
       <div class="mui--text-subhead">{{ operations }} Operations Performed</div>
     </div>
 
     <!-- Top Pagination Card -->
     <div class="mui-panel pagination-panel">
-        <button class="mui-btn mui-btn--flat" v-on:click="add('1')">Add Node</button>
-        <button class="mui-btn mui-btn--flat" v-on:click="remove('2')">Remove Node</button>
+        <button class="mui-btn mui-btn--flat" v-on:click="add()">Add Node</button>
+        <button class="mui-btn mui-btn--flat" :disabled="nodes===0" v-on:click="remove()">Remove Node</button>
     </div>
-
+    <pre>{{ x | json }}</pre>
+    <pre>{{ y | json }}</pre>
     <!-- Search Results Card List
     <div class="search-results" ref="searchResults">
       <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">

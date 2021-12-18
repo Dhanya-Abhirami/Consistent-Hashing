@@ -1,39 +1,73 @@
 package utils
 
-import(
-	"sort"
+import (
+	"log"
+	"hash/crc32"
+	"errors"
+	"strconv"
+	// "reflect"
+	// "github.com/rogpeppe/go-internal/fmtsort"
 )
 
 type HashRing struct {
-	Nodes Nodes
+	Nodes map[uint32]string
+	KeysMap map[uint32]string
+	Keys int
 }
 
-type Nodes []*Node
+var ErrNodeNotFound = errors.New("Node not found")
 
-func (n Nodes) Len() int { 
-	return len(n) 
-}
-
-func (n Nodes) Less(i int, j int) bool { 
-	return n[i].hashId < n[j].hashId 
-}
-
-func (n Nodes) Swap(i int, j int) { 
-	n[i], n[j] = n[j], n[i]
-}
-
-func NewHashRing() *HashRing{
+func NewHashRing(keys int) *HashRing{
 	hashRing := new(HashRing)
-	hashRing.Nodes = Nodes{}
+	hashRing.Nodes = make(map[uint32]string)
+	hashRing.KeysMap = make(map[uint32]string)
+	hashRing.Keys = keys
 	return hashRing 
 }
 
-func (hashRing *HashRing) AddNode(id string){
-	node := newNode(id)
-	hashRing.Nodes = append(hashRing.Nodes,node)
-	sort.Sort(hashRing.Nodes)
+func getHash(id string) uint32{
+	return crc32.ChecksumIEEE([]byte(id))
 }
 
-func (hashRing *HashRing) RemoveNode(id string){
+func (hashRing *HashRing) AddNode(id string) int{
+	hash := getHash(id)
+	hashRing.Nodes[hash]=id
+	remap := hashRing.Remap()
+	return remap
+}
 
+func (hashRing *HashRing) RemoveNode(id string) (int,error){
+	hash := getHash(id)
+	if _, found := hashRing.Nodes[hash]; found {
+		delete(hashRing.Nodes, hash)
+		remap := hashRing.Remap()
+		return remap,nil
+	} else{
+		return 0,ErrNodeNotFound
+	}
+}
+
+
+func (hashRing *HashRing) GetMapping(id string) (string,error){
+	hash := getHash(id)
+	if _, found := hashRing.Nodes[hash]; found {
+		return hashRing.Nodes[hash],nil
+	} else{
+		return "",ErrNodeNotFound
+	}
+}
+
+func (hashRing *HashRing) Remap() int{
+	remap := 0
+	for n := 1; n <= hashRing.Keys; n++ {
+		key, _ := strconv.Atoi(n)
+		hash := getHash(key)
+		newId := hashRing.GetMapping(hash)
+		if hashRing.KeysMap[hash]!=newId {
+			remap += 1
+			hashRing.KeysMap[hash]=newId
+		} 
+		log.Print(key,hash,hashRing)
+    } 
+	return remap
 }
