@@ -5,11 +5,11 @@
 
   <h3 align="center">Consistent-Hashing</h3>
   <p align="center">
-    Interactive Online Marketplace website that facilitates product buying and selling
+    Verifying the claims of Consistent Hashing
   </p>
 </p>
 
-<img src="https://github.com/Dhanya-Abhirami/Consistent-Hashing/blob/main/src/public/assets/images/screenshot.PNG" alt="Icon">
+<img src="https://github.com/Dhanya-Abhirami/Consistent-Hashing/blob/main/src/public/assets/images/screenshot.PNG" alt="Icon" width="40%" width="40%">
 
 # Why?
 _`I hear and I forget. I see and I remember. I do and I understand. - Confucius`_
