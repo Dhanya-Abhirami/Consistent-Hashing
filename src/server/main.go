@@ -58,14 +58,14 @@ func hashring(c *gin.Context) {
 // @Tags add
 // @Accept json
 // @Produce json
-// @Param id path string true "Node ID"
+// @Param id path string true "Server ID"
 // @Success 200 {string} add
 // @Failure 405 {string} add
-// @Router /node/{id} [put]
+// @Router /server/{id} [put]
 func add(c *gin.Context) {
-	if hashRing!=nil && hashRing.Nodes!=nil{
+	if hashRing!=nil && hashRing.Servers!=nil{
 		id := c.Param("id")
-		remap := hashRing.AddNode(id)
+		remap := hashRing.AddServer(id)
 		c.JSON(http.StatusOK, gin.H{"remap":remap})
 	} else{
 		c.JSON(http.StatusMethodNotAllowed, gin.H{"error": "Method not allowed"})
@@ -79,15 +79,15 @@ func add(c *gin.Context) {
 // @Tags remove
 // @Accept json
 // @Produce json
-// @Param id path string true "Node ID"
+// @Param id path string true "Server ID"
 // @Success 200 {string} remove
 // @Failure 404 {string} remove
 // @Failure 405 {string} remove
-// @Router /node/{id} [delete]
+// @Router /server/{id} [delete]
 func remove(c *gin.Context) {
-	if hashRing!=nil && hashRing.Nodes!=nil {
+	if hashRing!=nil && hashRing.Servers!=nil {
 		id := c.Param("id")
-		remap,err := hashRing.RemoveNode(id)
+		remap,err := hashRing.RemoveServer(id)
 		if err!=nil {
 			c.JSON(http.StatusNotFound, err.Error())
 		} else{
@@ -106,21 +106,16 @@ func remove(c *gin.Context) {
 // @Description mapping
 // @Tags mapping
 // @Accept json
-// @Param id path string true "Node ID"
+// @Param id path string true "Server ID"
 // @Produce json
 // @Success 200 {string} mapping
-// @Failure 404 {string} mapping
+// @Failure 405 {string} mapping
 // @Router /mapping/{id} [get]
 func mapping(c *gin.Context) {
-	if hashRing!=nil && hashRing.Nodes!=nil{
+	if hashRing!=nil && hashRing.Servers!=nil{
 		id := c.Param("id")
-		server,err := hashRing.GetMapping(id)
-		if err!=nil {
-			c.JSON(http.StatusNotFound, err.Error())
-		} else{
-			c.JSON(http.StatusOK, server)
-		}
-		
+		server := hashRing.GetMapping(id)
+		c.JSON(http.StatusOK, server)
 	} else{             
 		c.JSON(http.StatusMethodNotAllowed, gin.H{"error": "Method not allowed"})
 	}
@@ -135,11 +130,11 @@ func mapping(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Success 200 {string} mappingAll
-// @Failure 404 {string} mappingAll
+// @Failure 405 {string} mappingAll
 // @Router /mapping/all [get]
 func mappingAll(c *gin.Context) {
-	if hashRing!=nil && hashRing.Nodes!=nil{
-		c.JSON(http.StatusOK, hashRing.Nodes)
+	if hashRing!=nil && hashRing.Servers!=nil{
+		c.JSON(http.StatusOK, hashRing)
 	} else{             
 		c.JSON(http.StatusMethodNotAllowed, gin.H{"error": "Method not allowed"})
 	}
@@ -152,8 +147,8 @@ func main() {
    	v1 := router.Group("/api/v1")
 	{
 		v1.POST("/hashring", hashring)
-		v1.PUT("/node/:id", add)
-		v1.DELETE("/node/:id", remove)
+		v1.PUT("/server/:id", add)
+		v1.DELETE("/server/:id", remove)
 		v1.GET("/mapping/:id", mapping)
 		v1.GET("/mapping/all", mappingAll)
 	}

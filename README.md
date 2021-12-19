@@ -1,17 +1,33 @@
-# Consistent-Hashing
+<p align="center">
+  <a href="https://github.com/Dhanya-Abhirami/Consistent-Hashing">
+    <img src="https://github.com/Dhanya-Abhirami/Consistent-Hashing/blob/master/src/public/assets/images/icon.svg" alt="Icon" width="80" height="80">
+  </a>
 
-Verifying the claims of Consistent Hashing
+  <h3 align="center">Consistent-Hashing</h3>
+</p>
 
-# Setup
-```console
+<img src="https://github.com/Dhanya-Abhirami/Consistent-Hashing/blob/master/src/public/assets/images/screenshot.PNG" alt="Icon" width="80" height="80">
+
+# Why?
+_`I hear and I forget. I see and I remember. I do and I understand. - Confucius`_
+
+I wanted to understand the System Design concept of Consistent Hashing. So thought of coding up a minimal system simulating the concept.
+
+# Installation
+Use the docker-compose.yml to run manually or use the makefile.
+### Setup
+```bash
 make build
+```
+### Usage
+```bash
 make run
 ```
+### Demo
+Visit `file://{path_to_project}/Consistent-Hashing/src/public/index.html`
 
-* For Swagger Docs
-```
-http://localhost:8080/swagger/index.html
-```
+### API Docs on Swagger
+Visit `http://localhost:8080/swagger/index.html`
 
-## References
-https://github.com/swaggo/swag
+# License
+Licensed under the MIT License.

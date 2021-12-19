@@ -13,40 +13,35 @@
 </head>
 <body>
 <div class="app-container" id="vue-instance">
-    <h1>Consistent Hashing Visualizer</h1>
-    <!-- Search Metadata Card -->
-    <div class="mui-panel justify">
+    <h1>Consistent Hashing Simulation</h1>
+
+    <div class="mui-panel pagination-panel">
       <button class="mui-btn mui-btn--flat" v-on:click="hashring()">Create Hash Ring</button>
+      <button class="mui-btn mui-btn--flat" :disabled="operations===0" v-on:click="add()">Add Server</button>
+      <button class="mui-btn mui-btn--flat" :disabled="servers===0" v-on:click="remove()">Remove Server</button>
+      <button class="mui-btn mui-btn--flat" :disabled="servers===0" v-on:click="mappingAll()">Get All Mappings</button>
     </div>
 
     <div class="mui-panel">
-      <div class="mui--text-headline">{{nodes}} Nodes</div>
+      <div class="mui--text-headline">{{servers}} Servers</div>
       <div class="mui--text-subhead">{{ operations }} Operations Performed</div>
     </div>
-
-    <!-- Top Pagination Card -->
-    <div class="mui-panel pagination-panel">
-        <button class="mui-btn mui-btn--flat" v-on:click="add()">Add Node</button>
-        <button class="mui-btn mui-btn--flat" :disabled="nodes===0" v-on:click="remove()">Remove Node</button>
-    </div>
-    <pre>{{ x | json }}</pre>
-    <pre>{{ y | json }}</pre>
-    <!-- Search Results Card List
-    <div class="search-results" ref="searchResults">
-      <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
-        <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
-        <div class="mui-divider"></div>
-        <div class="mui--text-subhead">{{ hit._source.title }} - {{ hit._source.author }}</div>
-        <div class="mui--text-body2">Location {{ hit._source.id }}</div>
+    <div class="row">
+      <div class="col-md-6">
+        <canvas id="remapChart" style="width:100%;max-width:700px"></canvas>
       </div>
-    </div> -->
+      <div class="col-md-6">
+        <canvas id="hashRingChart" style="width:100%;max-width:700px"></canvas>
+      </div>
+    </div>
+    
 
 </div>
-<a href="https://github.com/Dhanya-Abhirami/Gutenberg-Search" title="See the source code at GitHub" style="position: fixed; top: 0; right: 0; border: 0; display: inline-block;"><img src="assets/images/github-ribbon.svg" width="50px" height="50px" alt=""></a>
+<a href="https://github.com/Dhanya-Abhirami/Consistent-Hashing" title="See the source code at GitHub" style="position: fixed; top: 0; right: 0; border: 0; display: inline-block;"><img src="assets/images/github-ribbon.svg" width="50px" height="50px" alt=""></a>
 <script src="https://cdn.muicss.com/mui-0.9.28/js/mui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.0/axios.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
