@@ -6,15 +6,15 @@ RUN  go mod init server
 
 RUN go get github.com/gin-gonic/gin
 
-RUN go get github.com/swaggo/swag/cmd/swag
+# RUN go get -u github.com/swaggo/swag/cmd/swag
 
-RUN go get github.com/swaggo/gin-swagger
+# RUN go get github.com/swaggo/gin-swagger
 
-RUN go get github.com/swaggo/files
+# RUN go get github.com/swaggo/files
 
 COPY ./ ./
 
-RUN swag init
+# RUN swag init
 
 RUN go build
 
